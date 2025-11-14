@@ -1,0 +1,75 @@
+# Slack App Manifest Configuration
+# Reference: https://api.slack.com/apps
+
+_metadata:
+  schema_version: 1
+  major_version: 1
+  minor_version: 1
+
+display_information:
+  name: Jira Agent
+  description: AI-powered Slack to Jira automation bot
+  background_color: "#ffffff"
+  long_description: >
+    Transforms natural language requests from Slack into fully-contextualized Jira tickets
+    using Claude Sonnet 4. Automatically analyzes task complexity, priority, and required modules.
+
+features:
+  app_home:
+    home_tab_enabled: false
+    messages_tab_enabled: false
+    messages_tab_read_only_enabled: false
+
+  bot_user:
+    display_name: Jira Agent
+    always_online: true
+
+oauth_config:
+  scopes:
+    bot:
+      - app_mentions:read
+      - chat:write
+      - channels:history
+      - users:read
+      - team:read
+
+  redirect_urls: []
+
+settings:
+  org_deploy_enabled: false
+  socket_mode_enabled: false
+  token_rotation_enabled: false
+
+events:
+  request_url_verification_enabled: true
+  bot_events:
+    - app_mention
+
+interactivity:
+  is_enabled: true
+  request_url: https://www.sim.ai/api/webhooks/interactivity
+
+slash_commands:
+  - command: /jira
+    url: https://www.sim.ai/api/webhooks/commands
+    description: Create a Jira ticket from Slack
+    usage_hint: /jira [task description]
+    should_escape: false
+
+message_menus: []
+
+incoming_webhooks:
+  - channel: '#notifications'
+    channel_id: C0000000000
+    configuration_url: https://www.sim.ai/webhooks/config
+    url: https://www.sim.ai/api/webhooks/incoming
+    service_id: S0000000000
+
+# Shortcuts
+shortcuts: []
+
+# Workflow steps
+workflow_steps:
+  - callback_id: create_jira_ticket
+    name: Create Jira Ticket
+    description: Creates a Jira ticket from structured input

@@ -1,0 +1,132 @@
+{
+  "field_mappings": {
+    "summary": {
+      "source": "task.title",
+      "type": "string",
+      "required": true,
+      "max_length": 255,
+      "description": "Brief one-line description of the task"
+    },
+    "description": {
+      "source": "formatted_description",
+      "type": "string",
+      "required": true,
+      "description": "Detailed task description with context, modules, and effort estimation"
+    },
+    "project": {
+      "source": "config.jiraProjectKey",
+      "type": "string",
+      "required": true,
+      "description": "Jira project key (e.g., PROJ, ENG, OPS)"
+    },
+    "issuetype": {
+      "source": "task.complexity",
+      "type": "string",
+      "required": true,
+      "mapping": {
+        "1-2": "Story",
+        "3": "Task",
+        "4-5": "Epic"
+      },
+      "description": "Issue type determined by complexity level"
+    },
+    "priority": {
+      "source": "task.priority",
+      "type": "string",
+      "required": true,
+      "allowed_values": ["Low", "Medium", "High", "Critical"],
+      "description": "Issue priority level"
+    },
+    "labels": {
+      "source": "task.labels",
+      "type": "array",
+      "required": false,
+      "description": "Labels for categorizing and filtering issues"
+    },
+    "customfield_10001": {
+      "name": "Effort Estimate",
+      "source": "task.hours",
+      "type": "number",
+      "required": false,
+      "unit": "hours",
+      "description": "Estimated effort in hours"
+    },
+    "customfield_10002": {
+      "name": "Complexity",
+      "source": "task.complexity",
+      "type": "number",
+      "required": false,
+      "min": 1,
+      "max": 5,
+      "description": "Task complexity score (1-5 scale)"
+    },
+    "customfield_10003": {
+      "name": "Affected Modules",
+      "source": "task.modules",
+      "type": "array",
+      "required": false,
+      "description": "Software modules impacted by this task"
+    },
+    "customfield_10004": {
+      "name": "Slack Source",
+      "source": "slack_metadata",
+      "type": "string",
+      "required": false,
+      "description": "Link back to original Slack message and user"
+    },
+    "customfield_10005": {
+      "name": "AI Confidence",
+      "source": "llm_confidence",
+      "type": "number",
+      "required": false,
+      "min": 0,
+      "max": 100,
+      "description": "Confidence score of LLM analysis (0-100%)"
+    }
+  },
+  "priority_mapping": {
+    "Low": {
+      "jira_priority": "Low",
+      "slack_emoji": "🟦"
+    },
+    "Medium": {
+      "jira_priority": "Medium",
+      "slack_emoji": "🟨"
+    },
+    "High": {
+      "jira_priority": "High",
+      "slack_emoji": "🟧"
+    },
+    "Critical": {
+      "jira_priority": "Highest",
+      "slack_emoji": "🔴"
+    }
+  },
+  "complexity_to_story_points": {
+    "1": 1,
+    "2": 2,
+    "3": 3,
+    "4": 5,
+    "5": 8
+  },
+  "complexity_to_issue_type": {
+    "1": "Story",
+    "2": "Story",
+    "3": "Task",
+    "4": "Task",
+    "5": "Epic"
+  },
+  "slack_metadata_format": {
+    "channel_id": "{channelId}",
+    "thread_ts": "{timestamp}",
+    "user_id": "{userId}",
+    "request_timestamp": "{formattedTimestamp}",
+    "original_message": "{cleanText}"
+  },
+  "error_defaults": {
+    "priority": "Medium",
+    "complexity": 3,
+    "effort_hours": 4,
+    "issue_type": "Task"
+  }
+}

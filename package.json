@@ -1,0 +1,49 @@
+{
+  "name": "slack-jira-agent",
+  "version": "1.0.0",
+  "description": "AI-powered workflow automation that transforms Slack messages into contextually enriched Jira tickets",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:unit": "jest tests/unit",
+    "test:integration": "jest tests/integration",
+    "validate": "node scripts/validate_config.js",
+    "anonymize": "node scripts/anonymize_workflow.js",
+    "lint": "eslint . --ext .js",
+    "lint:fix": "eslint . --ext .js --fix",
+    "start": "sim.ai workflow start",
+    "deploy": "sim.ai workflow deploy"
+  },
+  "keywords": [
+    "slack",
+    "jira",
+    "automation",
+    "ai",
+    "claude",
+    "workflow",
+    "integration",
+    "task-management"
+  ],
+  "author": "Sushil Duseja",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.48.0",
+    "jest": "^29.7.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sushilduseja/slack-jira-agent.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sushilduseja/slack-jira-agent/issues"
+  },
+  "homepage": "https://github.com/sushilduseja/slack-jira-agent#readme"
+}
